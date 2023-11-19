@@ -6,19 +6,30 @@ import { useState } from "react"
 const DetailBuku = () => {
     const [comment, setComment] = useState()
     const params = useParams()
+    const [like , setLike] = useState(500)
+    
+    const handleLike = () => {
+        if(like % 2 == 0 ){
+            setLike((p) => p + 1)
+            
+        }
+        if(like % 2 == 1 ){
+            setLike((p) => p - 1)
+        }
+    }
+
 
     const handleClick = () => {
-
         return (
-            <div>
-                <textarea name="comment" id="" cols="85" rows="4" autoFocus ></textarea>
+            <div className="flex md:justify-start flex-wrap ">
+                <textarea name="comment" id="" placeholder="comment disini`" className=" md:w-96 h-8 w-44 " autoFocus ></textarea>
+                <button className=" bg-blue-600 w-20 border border-black rounded my-1 md:mx-2 text-white " >send</button>
             </div>
         )
     }
 
     const items = data.filter((datas) => params.id == datas.id) 
     const buku = items[0]
-    console.log(buku)
 
     return (
         <div className="w-full  h-full p-8 " >
@@ -32,8 +43,11 @@ const DetailBuku = () => {
                         <button className="mx-2" onClick={()=>setComment(handleClick)} >
                         <ChatCenteredDots size={32} />
                         </button>
-                        <button>
-                        <ThumbsUp size={32} />
+                        <button onClick={handleLike} >
+                            <div className=" flex justify-start ">
+                            {like % 2 == 1 ? <ThumbsUp size={32} color="red" /> : <ThumbsUp size={32} /> } 
+                            <p className=" relative mx-1 text-xs text-blue-600 font-semibold " >{like}</p>
+                            </div>
                         </button>
                     </div>
                     <div className="mx-8 mt-2">
